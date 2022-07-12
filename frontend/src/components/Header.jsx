@@ -1,0 +1,42 @@
+import * as React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import { Link as RouterLink } from 'react-router-dom';
+import { useContext } from 'react';
+import AuthContext from '../context/auth/AuthContext';
+
+export default function ButtonAppBar() {
+  const { isAuth, logout, user } = useContext(AuthContext);
+
+  const authLinks = (
+    <>
+      <Button component={RouterLink} to='/logout' color='inherit'>
+        Logout
+      </Button>
+    </>
+  );
+
+  const guestLinks = (
+    <>
+      <Button component={RouterLink} to='/login' color='inherit'>
+        Login
+      </Button>
+    </>
+  );
+
+  return (
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position='static'>
+        <Toolbar>
+          <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
+            Github Jobs
+          </Typography>
+          {isAuth ? authLinks : guestLinks}
+        </Toolbar>
+      </AppBar>
+    </Box>
+  );
+}
